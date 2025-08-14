@@ -1,5 +1,6 @@
 from django.db import models
 from accounts.models import Account
+from datetime import date
 
 
 class Category(models.Model):
@@ -23,10 +24,13 @@ class Initiator(models.Model):
 
 
 class Transaction(models.Model):
-    date = models.DateField()
+    date = models.DateField(default=date.today())
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     account = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
     initiator = models.ForeignKey(Initiator, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f"{self.date} -- {self.amount} -- {self.category}"
 
 
