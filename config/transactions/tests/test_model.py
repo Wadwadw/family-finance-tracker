@@ -3,6 +3,7 @@ from transactions.models import Category, Initiator, Transaction
 from accounts.models import Account
 from django.contrib.auth.models import User
 from datetime import date
+from decimal import Decimal
 
 
 class CategoryModelTest(TestCase):
@@ -54,7 +55,7 @@ class TransactionModelTest(TestCase):
             name="Maryna",
         )
         self.transaction = Transaction.objects.create(
-            date=date.today(),
+            date=date(2025, 8, 13),
             amount=215,
             category=self.category,
             account=self.account,
@@ -63,7 +64,7 @@ class TransactionModelTest(TestCase):
 
     def test_create_transaction_and_str(self):
         self.assertEqual(self.transaction.date, date.today())
-        self.assertEqual(self.transaction.amount, 215)
+        self.assertEqual(self.transaction.amount, Decimal("215"))
         self.assertEqual(self.transaction.category.title, "Продукты")
         self.assertEqual(self.transaction.account.title, "Mono M")
         self.assertEqual(self.transaction.initiator.name, "Maryna")

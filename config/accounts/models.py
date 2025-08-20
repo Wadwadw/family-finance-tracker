@@ -16,3 +16,6 @@ class InitialBalance(models.Model):
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=20, decimal_places=2)
     date_create = models.DateField()
+
+    def __str__(self):
+        return f"{self.account} -- {self.amount}"
